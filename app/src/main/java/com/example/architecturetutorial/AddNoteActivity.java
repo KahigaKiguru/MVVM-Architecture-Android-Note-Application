@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.NumberPicker;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -20,8 +19,10 @@ public class AddNoteActivity extends AppCompatActivity {
     public static final String EXTRA_TITLE =  "com.example.architecturetutorial.EXTRA_TITLE";
     public static final String EXTRA_DESCRITPION =  "com.example.architecturetutorial.EXTRA_DESCRIPTION";
     public static final String EXTRA_PRIORITY=  "com.example.architecturetutorial.EXTRA_PRIORITY";
+
+
     private EditText noteTitle;
-    private EditText noteDescritpion;
+    private EditText noteDescription;
     private NumberPicker priorityPicker;
     private FloatingActionButton fbtn_save_note;
 
@@ -39,14 +40,14 @@ public class AddNoteActivity extends AppCompatActivity {
     public void initializeWidgets(){
 
         noteTitle = findViewById(R.id.note_title);
-        noteDescritpion = findViewById(R.id.note_description);
+        noteDescription = findViewById(R.id.note_description);
         priorityPicker = findViewById(R.id.priority_picker);
 
-        fbtn_save_note = findViewById(R.id.fbtn_add_note);
+        fbtn_save_note = findViewById(R.id.f_btn_save_note);
         fbtn_save_note.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //save_note();
+                saveEntry();
             }
         });
         priorityPicker.setMaxValue(10);
@@ -56,7 +57,7 @@ public class AddNoteActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater add_note_menu_inflater = getMenuInflater();
-        add_note_menu_inflater.inflate(R.menu.add_note_menu, menu);
+        add_note_menu_inflater.inflate(R.menu.cancel_note_menu, menu);
         return true;
     }
     @Override
@@ -70,13 +71,13 @@ public class AddNoteActivity extends AppCompatActivity {
         }
     }
 
-    private void save_note(){
+    private void saveEntry(){
         String note_title;
         String note_description;
         int note_priority_value;
 
         note_title = noteTitle.getText().toString();
-        note_description = noteDescritpion.getText().toString();
+        note_description = noteDescription.getText().toString();
         note_priority_value = priorityPicker.getValue();
 
         if (note_title.trim().isEmpty() || note_description.trim().isEmpty()){
@@ -87,7 +88,12 @@ public class AddNoteActivity extends AppCompatActivity {
         
         Intent data = new Intent();
 
-        data.putExtra(, note_title);
+        data.putExtra(EXTRA_TITLE, note_title);
+        data.putExtra(EXTRA_DESCRITPION, note_description);
+        data.putExtra(EXTRA_PRIORITY, note_priority_value);
+
+        setResult(RESULT_OK, data);
+        finish();
 
     }
 }

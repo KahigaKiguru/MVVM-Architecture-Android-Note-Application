@@ -20,17 +20,26 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private NoteViewModel noteViewModel;
-    private FloatingActionButton btn_add_note;
+    public static final int ADD_NOTE_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initializeWidgets();
 
         RecyclerView noteRecyclerView = findViewById(R.id.notes_recycler_view);
         noteRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         noteRecyclerView.setHasFixedSize(true);
+
+        FloatingActionButton fbutton_add_note = findViewById(R.id.f_btn_add_note);
+        fbutton_add_note.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AddNoteActivity.class);
+                startActivityForResult(intent, ADD_NOTE_REQUEST);
+
+            }
+        });
 
         final NoteAdapter noteAdapter = new NoteAdapter();
 
@@ -39,22 +48,32 @@ public class MainActivity extends AppCompatActivity {
         noteViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
             @Override
             public void onChanged(@Nullable List<Note> notes) {
-                //Update RecyclerView
 
                 noteAdapter.setNotes(notes);
                 Toast.makeText(MainActivity.this, "OnChanged", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
 
-    private void initializeWidgets(){
-        final Intent intent = new Intent(MainActivity.this, AddNoteActivity.class);
-        btn_add_note = findViewById(R.id.fbtn_add_note);
-        btn_add_note.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(intent);
-            }
-        });
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == ADD_NOTE_REQUEST && resultCode == RESULT_OK){
+
+            String title = data.getStringExtra(AddNoteActivity.EXTRA_TITLE);
+            String descritpion = data.getStringExtra(AddNoteActivity.EXTRA_DESCRITPION);
+            int priority = data.getIntExtra(AddNoteActivity.EXTRA_PRIORITY, 1);
+
+            Note note = new Note(title, descritpion, priority);
+            noteViewModel.inserNote(note);
+
+            Toast.makeText(this, "Note Saved ", Toast.LENGTH_SHORT).show();
+        }else{
+
+            Toast.makeText(this, "Note not saved ! ", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }
