@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddNoteActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginEnd="15sp"
+        android:layout_marginStart="15sp"
+        android:layout_marginTop="10sp"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/note_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Note Title"
+            android:layout_marginTop="20sp"/>
+
+        <EditText
+            android:id="@+id/note_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:layout_below="@id/note_title"
+            android:layout_marginTop="20sp"
+            android:hint="Note Description"/>
+
+        <TextView
+            android:id="@+id/text_priority"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/note_description"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:text="Priority"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
+        <NumberPicker
+            android:id="@+id/priority_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_priority"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fbtn_save_note"
+            android:src="@drawable/ic_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity = "bottom|end"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="32sp"
+            android:layout_marginBottom="32sp"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>
