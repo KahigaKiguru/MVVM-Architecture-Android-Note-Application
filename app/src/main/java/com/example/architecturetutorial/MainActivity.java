@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 noteViewModel.deleteNote(noteAdapter.getNoteAt(viewHolder.getAdapterPosition()));
-                Toast.makeText(MainActivity.this, "Note Deleted !", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Note Deleted !", Toast.LENGTH_LONG).show();
             }
         }).attachToRecyclerView(noteRecyclerView);
     }
@@ -81,10 +81,10 @@ public class MainActivity extends AppCompatActivity {
         if(requestCode == ADD_NOTE_REQUEST && resultCode == RESULT_OK){
 
             String title = data.getStringExtra(AddNoteActivity.EXTRA_TITLE);
-            String descritpion = data.getStringExtra(AddNoteActivity.EXTRA_DESCRITPION);
+            String description = data.getStringExtra(AddNoteActivity.EXTRA_DESCRITPION);
             int priority = data.getIntExtra(AddNoteActivity.EXTRA_PRIORITY, 1);
 
-            Note note = new Note(title, descritpion, priority);
+            Note note = new Note(title, description, priority);
             noteViewModel.inserNote(note);
 
             Toast.makeText(this, "Note Saved ", Toast.LENGTH_SHORT).show();
