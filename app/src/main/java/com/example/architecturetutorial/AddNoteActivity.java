@@ -93,6 +93,8 @@ public class AddNoteActivity extends AppCompatActivity {
         data.putExtra(EXTRA_PRIORITY, note_priority_value);
 
         setResult(RESULT_OK, data);
+
+        Toast.makeText(this, "Note Saved ! ", Toast.LENGTH_SHORT).show();
         finish();
 
     }
