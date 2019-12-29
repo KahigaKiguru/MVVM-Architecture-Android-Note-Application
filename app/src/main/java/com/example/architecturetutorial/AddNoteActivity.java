@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -78,6 +79,12 @@ public class AddNoteActivity extends AppCompatActivity {
         note_description = noteDescritpion.getText().toString();
         note_priority_value = priorityPicker.getValue();
 
+        if (note_title.trim().isEmpty() || note_description.trim().isEmpty()){
+
+            Toast.makeText(this, "Please Enter a Title and Description ", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        
         Intent data = new Intent();
 
         data.putExtra(, note_title);
